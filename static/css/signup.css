@@ -1,0 +1,252 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #fff;
+}
+
+.container {
+    display: flex;
+    width: 90%;
+    gap: 50px;
+    max-width: 1200px;
+    background-color: #000;
+    border-radius: 48px;
+    transition: all 0.3s ease;
+}
+
+.left-section {
+    flex: 1;
+    background: var(--Grey-100, #181818);
+    padding: 50px;
+    transition: all 0.3s ease;
+    border-radius: 20px;
+}
+
+.left-section::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 336px;
+    height: 336px;
+    background: url('<path-to-image>') lightgray 50% / cover no-repeat;
+    opacity: 0.3;
+    filter: blur(150px);
+    border-radius: 50%;
+    z-index: 0;
+}
+
+.left-section h1 {
+    font-size: 3rem;
+    padding-top: 50px;
+    font-weight: bold;
+    background: linear-gradient(148deg, #71FF59 -12.37%, #33FFE7 179.78%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent; /* Make text transparent */
+    margin-bottom: 20px;
+}
+
+.left-section p {
+    font-size: 1.2rem;
+    background: linear-gradient(148deg, #71FF59 -12.37%, #33FFE7 179.78%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    line-height: 1.5;
+}
+
+
+.logo {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 40px;
+    border-radius: 5px;
+}
+
+.right-section {
+    flex: 1;
+    background-color: #000;
+    padding: 50px;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.form-box {
+    max-width: 400px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.form-box h2 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 0.5px solid #62ff48;
+    background-color: #111;
+    color: #fff;
+    font-size: 1rem;
+    outline: none;
+    display: block;
+}
+
+.error-message {
+    color: rgb(246, 99, 99);
+    font-size: 8px;
+    display: none;
+    margin-top: 5px;
+}
+
+.action-btn {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(148deg, #71FF59 -12.37%, #33FFE7 179.78%);
+    color: #000;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.google-btn {
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png');
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 12px;
+    background-color: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #000;
+    font-size: 16px;
+}
+
+.google-btn img {
+    width: 20px;
+    margin-right: 10px;
+}
+
+.separator {
+    margin: 20px 0;
+    color: #a3a3a3;
+    text-align: center;
+}
+
+.link p {
+    color: #a3a3a3;
+    font-size: 14px;
+    padding-top: 3%;
+}
+
+.link a {
+    color: #00FF66;
+    text-decoration: none;
+}
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        width: 90%;
+        max-width: 100%;
+        border-radius: 0;
+    }
+
+    .left-section {
+        display: none;
+    }
+
+    .right-section {
+        padding: 30px;
+        width: 100%;
+    }
+
+    .form-box {
+        padding: 30px;
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        height: auto;
+    }
+
+    .container {
+        width: 100%;
+        flex-direction: column;
+        height: auto;
+        border-radius: 0;
+    }
+
+    .left-section {
+        display: block;
+        padding: 20px;
+        width: 100%;
+        text-align: center;
+    }
+
+    .left-section h1 {
+        font-size: 2rem;
+    }
+
+    .left-section p {
+        font-size: 1rem;
+    }
+
+    .right-section {
+        padding: 20px;
+        width: 100%;
+    }
+
+    .form-box h2 {
+        font-size: 1.5rem;
+    }
+
+    .input-group input {
+        font-size: 1rem;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #62ff48;
+        background-color: #111;
+    }
+
+    .action-btn, .google-btn {
+        font-size: 14px;
+        padding: 10px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1000px;
+    }
+
+    .left-section, .right-section {
+        padding: 60px;
+    }
+
+    .form-box {
+        max-width: 500px;
+    }
+}

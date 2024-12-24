@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up Form</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/signup.css') }}">
+</head>
+<body>
+    <div class="container">
+        <!-- Left Section -->
+        <div class="left-section">
+            <div class="logo">
+                <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60" fill="none">
+                    <g clip-path="url(#clip0_104_1746)">
+                      <path d="M13.0909 36.5023C13.0909 41.6725 13.0909 44.2576 14.8858 45.8901C16.6807 47.5227 19.5229 47.5227 25.2073 47.5227L31.8285 47.5227C38.624 47.5227 42.0218 47.5227 42.6574 45.7262C43.293 43.9296 40.6177 41.8875 35.2671 37.8031L13.0909 20.875L13.0909 36.5023Z" fill="url(#paint0_linear_104_1746)"/>
+                      <path d="M13.0909 24.324C13.0909 19.1538 13.0909 16.5687 14.8858 14.9361C16.6807 13.3036 19.5229 13.3036 25.2073 13.3036L31.8285 13.3036C38.624 13.3036 42.0218 13.3036 42.6574 15.1001C43.293 16.8966 40.6177 18.9388 35.2671 23.0231L13.0909 39.9512L13.0909 24.324Z" fill="url(#paint1_linear_104_1746)"/>
+                    </g>
+                    <defs>
+                      <linearGradient id="paint0_linear_104_1746" x1="-3.1579" y1="18.6291" x2="0.661875" y2="49.971" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#47FFBD" stop-opacity="0.2"/>
+                        <stop offset="1" stop-color="#62FF48"/>
+                      </linearGradient>
+                      <linearGradient id="paint1_linear_104_1746" x1="-3.1579" y1="42.1972" x2="0.661875" y2="10.8553" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#47FFBD" stop-opacity="0.2"/>
+                        <stop offset="1" stop-color="#62FF48"/>
+                      </linearGradient>
+                      <clipPath id="clip0_104_1746">
+                        <rect width="60" height="58.8506" fill="white" transform="translate(0 0.979736)"/>
+                      </clipPath>
+                    </defs>
+                </svg>
+            </div>
+            <h1>Way to Grow, Way to Success.</h1>
+            <p>Create an account to manage your data and preferences, and explore all the features we offer.</p>
+        </div>
+
+        <!-- Right Section -->
+        <div class="right-section">
+            <div class="form-box">
+                <h2>Sign Up</h2>
+        
+                <form action="/register" method="POST">
+                    <div class="input-group">
+                        <input type="text" placeholder="Username" value="{{ request.form.get('username', '') }}" id="username" name="username" required>
+                             {% if errors %}
+                            <span class="error-message" style="display: block;">{{ errors['username'] }}</span>
+                            {% endif %}
+                    </div>
+        
+                    <div class="input-group">
+                        <input type="email" placeholder="Email" value="{{ request.form.get('email', '') }}" id="email" name="email" required>
+                        {% if errors and errors.get('email') %}
+                            <span class="error-message" style="display: block;" >{{ errors['email'] }}</span>
+                        {% endif %}
+                    </div>
+        
+                    <div class="input-group">
+                        <input type="password" placeholder="Password" value="{{ request.form.get('password', '') }}" id="password" name="password" required>
+                        {% if errors and errors.get('password') %}
+                            <span class="error-message" style="display: block;" >{{ errors['password'] }}</span>
+                        {% endif %}
+                    </div>
+        
+                    <div class="input-group">
+                        <input type="password" placeholder="Confirm Password" value="{{ request.form.get('confirm-passwor', '') }}" id="confirm-password" name="confirm-password" required>
+                        {% if errors and errors.get('confirm-password') %}
+                            <h3 class="error-message" style="display: block;" >{{ errors['confirm-password'] }}</h3>
+                        {% endif %}
+                    </div>
+        
+                    <button type="submit" class="action-btn">Sign Up</button>
+        
+                    <div class="separator">or</div>
+        
+                    <button type="button" class="google-btn">
+                        <!-- Google icon code -->
+                        &nbsp; Sign up with Google
+                    </button>
+        
+                    <div class="link">
+                        <p>Already have an account? <a href="{{ url_for('loginpage') }}">Login</a></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+    </div>
+</body>
+</html>

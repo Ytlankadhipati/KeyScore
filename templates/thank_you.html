@@ -1,0 +1,22 @@
+{% include 'header.html' %}
+<main>
+    <div class="thank-you-page">
+        <div class="thank-you-section">
+            <h2>Thank You for Your Feedback!</h2>
+            <p>Your input helps us improve our service. We appreciate your time and effort!</p>
+            <a href="{{ url_for('dashboard') }}" class="btn">Back to Dashboard</a>
+        </div>
+    </div>
+    
+        <script>// Simple parallax effect
+           // Simple parallax effect for background movement
+           window.addEventListener('scroll', function () {
+        var section = document.getElementById('thank-you-section');
+        var offset = window.pageYOffset; // Scroll distance
+
+        // Adjust the background position for parallax effect
+        section.style.backgroundPosition = 'center ' + (offset * 0.5) + 'px';
+    });
+            </script>
+    </div>
+</main>

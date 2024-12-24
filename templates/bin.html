@@ -1,0 +1,19 @@
+{% include 'header.html' %}
+
+{% block content %}
+<h1>Trash Bin</h1>
+
+{% if deleted_files %}
+    <ul>
+        {% for file in deleted_files %}
+        <li>
+            {{ file['file_name'] }} (Deleted at: {{ file['deleted_at'] }})
+            <a href="{{ url_for('restore_file', file_id=file['id']) }}">Restore</a> | 
+            <a href="{{ url_for('permanently_delete_file', file_id=file['id']) }}">Delete Permanently</a>
+        </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No files in trash.</p>
+{% endif %}
+{% endblock %}

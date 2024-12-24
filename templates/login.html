@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/login.css') }}">
+</head>
+<body>
+    
+    <div class="container">
+        <div class="left-section">
+            <div class="logo">
+                <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60" fill="none">
+                    <g clip-path="url(#clip0_104_1746)">
+                      <path d="M13.0909 36.5023C13.0909 41.6725 13.0909 44.2576 14.8858 45.8901C16.6807 47.5227 19.5229 47.5227 25.2073 47.5227L31.8285 47.5227C38.624 47.5227 42.0218 47.5227 42.6574 45.7262C43.293 43.9296 40.6177 41.8875 35.2671 37.8031L13.0909 20.875L13.0909 36.5023Z" fill="url(#paint0_linear_104_1746)"/>
+                      <path d="M13.0909 24.324C13.0909 19.1538 13.0909 16.5687 14.8858 14.9361C16.6807 13.3036 19.5229 13.3036 25.2073 13.3036L31.8285 13.3036C38.624 13.3036 42.0218 13.3036 42.6574 15.1001C43.293 16.8966 40.6177 18.9388 35.2671 23.0231L13.0909 39.9512L13.0909 24.324Z" fill="url(#paint1_linear_104_1746)"/>
+                    </g>
+                    <defs>
+                      <linearGradient id="paint0_linear_104_1746" x1="-3.1579" y1="18.6291" x2="0.661875" y2="49.971" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#47FFBD" stop-opacity="0.2"/>
+                        <stop offset="1" stop-color="#62FF48"/>
+                      </linearGradient>
+                      <linearGradient id="paint1_linear_104_1746" x1="-3.1579" y1="42.1972" x2="0.661875" y2="10.8553" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#47FFBD" stop-opacity="0.2"/>
+                        <stop offset="1" stop-color="#62FF48"/>
+                      </linearGradient>
+                      <clipPath id="clip0_104_1746">
+                        <rect width="60" height="58.8506" fill="white" transform="translate(0 0.979736)"/>
+                      </clipPath>
+                    </defs>
+                </svg>
+            </div>
+            <h1>Way to Grow, Way to Success.</h1>
+            <p>Making the transition for the youth of the world smooth to live a successful life</p>
+        </div>
+        <div class="right-section">
+            <div class="form-container">
+                <h2>Welcome back!</h2>
+                <form action="/login" method="POST">
+                    <div class="input-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" value="{{ request.form.get('email', '') }}" required>
+                        {% if errors and errors.get('email') %}
+                            <span class="error-message" style="display: block;">{{ errors['email'] }}</span>
+                        {% endif %}
+                    </div>
+                    <div class="input-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" value="{{ request.form.get('password', '') }}" required>
+                        {% if errors and errors.get('password') %}
+                            <span class="error-message" style="display: block;">{{ errors['password'] }}</span>
+                        {% endif %}
+                    </div>
+                    <div class="forgot-password">
+                        <a href="#">Forgot Password?</a>
+                    </div>
+                    <button type="submit" class="btn login-btn">Log In</button>
+                    <div class="link">
+                        <p>Not have an account? <a href="{{ url_for('signup') }}">Sign Up</a></p>
+                    </div>
+                    <div class="divider">OR</div>
+                    <button type="button" class="btn google-btn">
+                        <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g id="Google__G__Logo 2" clip-path="url(#clip0_368_415)">
+                                <g id="Group">
+                                    <path id="Vector" d="M8.16321 6.67905V9.84048H12.5565C12.3636 10.8572 11.7847 11.7181 10.9164 12.2969L13.5658 14.3526C15.1094 12.9278 15.9999 10.835 15.9999 8.3489C15.9999 7.77005 15.948 7.21341 15.8515 6.67914L8.16321 6.67905Z" fill="#4285F4"/>
+                                    <path id="Vector_2" d="M3.58828 9.71707L2.99075 10.1745L0.875671 11.822C2.2189 14.4861 4.97196 16.3266 8.16305 16.3266C10.3671 16.3266 12.2149 15.5993 13.5656 14.3526L10.9163 12.2969C10.189 12.7867 9.26134 13.0836 8.16305 13.0836C6.0406 13.0836 4.2373 11.6513 3.59161 9.72178L3.58828 9.71707Z" fill="#34A853"/>
+                                    <path id="Vector_3" d="M0.875698 4.50467C0.319139 5.60296 6.10352e-05 6.84232 6.10352e-05 8.16327C6.10352e-05 9.48422 0.319139 10.7236 0.875698 11.8219C0.875698 11.8292 3.5919 9.71425 3.5919 9.71425C3.42864 9.22445 3.33213 8.705 3.33213 8.16318C3.33213 7.62136 3.42864 7.10191 3.5919 6.61212L0.875698 4.50467Z" fill="#FBBC05"/>
+                                    <path id="Vector_4" d="M8.16322 3.25048C9.36547 3.25048 10.4341 3.66606 11.2875 4.46756L13.6252 2.12991C12.2077 0.80896 10.3673 0 8.16322 0C4.97213 0 2.2189 1.83303 0.875671 4.50467L3.59179 6.61229C4.2374 4.68276 6.04077 3.25048 8.16322 3.25048Z" fill="#EA4335"/>
+                                </g>
+                            </g>
+                            <defs>
+                                <clipPath id="clip0_368_415">
+                                    <rect width="16" height="16.3265" fill="white"/>
+                                </clipPath>
+                            </defs>
+                        </svg>
+                        &nbsp; Continue with Google
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

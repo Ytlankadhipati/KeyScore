@@ -1,0 +1,101 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.help-page-container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.help-header h1 {
+    font-size: 36px;
+    color: #62FF48;
+    text-align: center;
+}
+
+.help-header p {
+    text-align: center;
+    font-size: 18px;
+    color: #666;
+}
+
+.help-section {
+    margin-bottom: 30px;
+}
+
+.help-section h2 {
+    font-size: 28px;
+    color: #333;
+}
+
+.help-section p,
+.help-section ol {
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.help-section ol {
+    margin-left: 20px;
+}
+
+.video-tutorial {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.video-tutorial h3 {
+    font-size: 22px;
+    color: #333;
+}
+
+.video-tutorial video {
+    max-width: 100%;
+    margin-top: 10px;
+    border-radius: 8px;
+}
+
+.contact-section {
+    background-color: #f8f8f8;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.contact-section h2 {
+    font-size: 28px;
+    color: #333;
+}
+
+.contact-section ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.contact-section ul li {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.contact-section ul li a {
+    color: #62FF48;
+    text-decoration: none;
+}
+
+.contact-section ul li a:hover {
+    text-decoration: underline;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 14px;
+    color: #666;
+}

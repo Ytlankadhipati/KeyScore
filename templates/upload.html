@@ -1,0 +1,124 @@
+{% include 'header.html' %}
+<section class="file-upload-section d-flex flex-column justify-content-center align-items-center vh-100">
+    <div class="text-center">
+        <h4><b>File Upload With Sortable, Remove Options</b></h4>
+    </div>
+    <div class="file-upload-area mt-4">
+        <div class="upload-icon mb-3">
+            <img src="https://cdn-icons-png.flaticon.com/512/337/337946.png" alt="Upload Icon" width="64" />
+        </div>
+        <p>Browse or Drag and Drop <b>.jpg</b>, <b>.png</b>, <b>.gif</b>, or <b>.pdf</b></p>
+        <form id="uploadForm" action="/upload" method="post" enctype="multipart/form-data">
+            <input id="fileInput" name="file" type="file" accept=".jpg,.png,.gif,.pdf" multiple />
+            <label for="fileInput" class="btn btn-primary mt-3">Browse File</label>
+        </form>
+    </div>
+    <div class="preview-container d-flex flex-wrap justify-content-center mt-4">
+    </div>
+    <div class="alert-container text-center w-100 mt-5" id="alert-container">
+    {% with messages = get_flashed_messages(with_categories=true) or [] %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="alert alert-{{ category }}" style="color: #62ff48;" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+</div>
+
+
+
+    <div id="uploadButtonContainer" class="text-center mt-4"></div>
+</section>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const fileInput = document.getElementById('fileInput');
+        const previewContainer = document.querySelector('.preview-container');
+        const uploadButtonContainer = document.getElementById('uploadButtonContainer');
+
+        const handleFiles = (files) => {
+            previewContainer.innerHTML = '';
+            uploadButtonContainer.innerHTML = '';
+
+            Array.from(files).forEach((file) => {
+                const reader = new FileReader();
+
+                const createPreview = (src, name) => {
+                    const preview = document.createElement('div');
+                    preview.classList.add('file-preview', 'd-flex', 'align-items-center', 'm-2');
+
+                    const img = document.createElement('img');
+                    img.src = src;
+                    img.alt = name;
+                    img.style.width = '50px';
+                    img.style.height = '50px';
+                    img.style.objectFit = 'contain';
+
+                    const fileName = document.createElement('span');
+                    fileName.textContent = name;
+                    fileName.style.margin = '0 10px';
+
+                    const removeBtn = document.createElement('button');
+                    removeBtn.textContent = '×';
+                    removeBtn.classList.add('remove-btn', 'btn', 'btn-danger', 'btn-sm');
+                    removeBtn.addEventListener('click', () => preview.remove());
+
+                    preview.appendChild(img);
+                    preview.appendChild(fileName);
+                    preview.appendChild(removeBtn);
+                    previewContainer.appendChild(preview);
+                };
+
+                if (file.type.startsWith('image/')) {
+                    reader.onload = (e) => createPreview(e.target.result, file.name);
+                    reader.readAsDataURL(file);
+                } else if (file.type === 'application/pdf') {
+                    const pdfIcon = 'https://cdn-icons-png.flaticon.com/512/337/337946.png'; 
+                    createPreview(pdfIcon, file.name);
+                } else {
+                    const fileIcon = 'https://cdn-icons-png.flaticon.com/512/136/136549.png'; 
+                    createPreview(fileIcon, file.name);
+                }
+            });
+
+            if (files.length > 0) {
+                const uploadButton = document.createElement('button');
+                uploadButton.textContent = 'Upload Files';
+                uploadButton.id = 'uploadbtn';
+                uploadButton.type = 'button';
+                uploadButton.classList.add('btn', 'btn-success', 'mt-3');
+                uploadButton.style.marginTop = '10px';
+                uploadButton.addEventListener('click', () => {
+                    const form = document.getElementById('uploadForm');
+                    form.submit();
+                });
+                uploadButtonContainer.appendChild(uploadButton);
+            }
+        };
+
+        fileInput.addEventListener('change', (event) => handleFiles(event.target.files));
+
+        const fileUploadArea = document.querySelector('.file-upload-area');
+        fileUploadArea.addEventListener('dragover', (event) => {
+            event.preventDefault();
+            fileUploadArea.style.borderColor = '#0056cc';
+            fileUploadArea.style.backgroundColor = '#e9f5ff';
+        });
+
+        fileUploadArea.addEventListener('dragleave', () => {
+            fileUploadArea.style.borderColor = '#006eff';
+            fileUploadArea.style.backgroundColor = '#f8fbff';
+        });
+
+        fileUploadArea.addEventListener('drop', (event) => {
+            event.preventDefault();
+            fileUploadArea.style.borderColor = '#006eff';
+            fileUploadArea.style.backgroundColor = '#f8fbff';
+            handleFiles(event.dataTransfer.files);
+        });
+    });
+</script>
+

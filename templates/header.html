@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/dashstyle.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.11.3/main.min.css" rel="stylesheet">
+    
+
+
+</head>
+<body>
+    <div class="container">
+<aside class="sidebar">
+    <script>
+        // Sidebar hover functionality (Optional)
+document.querySelector('.sidebar').addEventListener('mouseenter', function () {
+    this.style.width = '65px';
+});
+
+document.querySelector('.sidebar').addEventListener('mouseleave', function () {
+    this.style.width = '60px';
+});
+
+    </script>
+    <div class="logo">
+        <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60" fill="none">
+            <g clip-path="url(#clip0_104_1746)">
+              <path d="M13.0909 36.5023C13.0909 41.6725 13.0909 44.2576 14.8858 45.8901C16.6807 47.5227 19.5229 47.5227 25.2073 47.5227L31.8285 47.5227C38.624 47.5227 42.0218 47.5227 42.6574 45.7262C43.293 43.9296 40.6177 41.8875 35.2671 37.8031L13.0909 20.875L13.0909 36.5023Z" fill="url(#paint0_linear_104_1746)"/>
+              <path d="M13.0909 24.324C13.0909 19.1538 13.0909 16.5687 14.8858 14.9361C16.6807 13.3036 19.5229 13.3036 25.2073 13.3036L31.8285 13.3036C38.624 13.3036 42.0218 13.3036 42.6574 15.1001C43.293 16.8966 40.6177 18.9388 35.2671 23.0231L13.0909 39.9512L13.0909 24.324Z" fill="url(#paint1_linear_104_1746)"/>
+            </g>
+            <defs>
+              <linearGradient id="paint0_linear_104_1746" x1="-3.1579" y1="18.6291" x2="0.661875" y2="49.971" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#47FFBD" stop-opacity="0.2"/>
+                <stop offset="1" stop-color="#62FF48"/>
+              </linearGradient>
+              <linearGradient id="paint1_linear_104_1746" x1="-3.1579" y1="42.1972" x2="0.661875" y2="10.8553" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#47FFBD" stop-opacity="0.2"/>
+                <stop offset="1" stop-color="#62FF48"/>
+              </linearGradient>
+              <clipPath id="clip0_104_1746">
+                <rect width="60" height="58.8506" fill="white" transform="translate(0 0.979736)"/>
+              </clipPath>
+            </defs>
+          </svg>
+    </div>
+    
+    <script>
+        function confirmLogout(event) {
+            event.preventDefault(); // Prevent the default link behavior
+            if (confirm("Are you sure you want to log out?")) {
+                window.location.href = "{{ url_for('logout') }}"; // Redirect to logout route
+            }
+        }
+    </script>
+    <nav class="nav">
+        <a href="{{ url_for('dashboard') }}" class="nav-item"><i class="fas fa-home"></i></a>
+        <div class="nav-item"><i class="fas fa-file-upload"></i> 
+                <!-- Dropdown content -->
+                <div class="dropdown-content">
+                    <a href="{{ url_for('Project') }}">Uploaded files </a>
+                    
+                    <a href="#">Academics</a>
+                    <a href="#">Online</a>
+                </div>
+            </div>  
+        
+        <a href="#" class="nav-item"> <i class="fas fa-trash-alt"></i></i></a>
+        <a href="{{ url_for('feedback') }}" class="nav-item"><i class="fas fa-comments"></i></i> 
+
+        <a href="{{ url_for('help') }}" class="nav-item"><i class="fas fa-info-circle"></i> 
+        </a>
+        <a href="{{ url_for('logout') }}" onclick="confirmLogout(event)" class="nav-item"><i class="fas fa-cog"></i></a>
+    </nav>
+    <div class="profile-pic">
+        <img src="https://via.placeholder.com/40x40" alt="profile-pic">
+    </div>
+</aside>
+
+<aside class="bottom-right-button">
+    {% if request.path != url_for('upload') %}
+        <a href="{{ url_for('upload') }}" class="circle-button">
+            <span class="plus_icon">+</span>
+        </a>
+    {% endif %}
+</aside>
+
+
+
+
+
+
+
+    <script>
+        function toggleOptions() {
+            const optionsMenu = document.getElementById("optionsMenu");
+            optionsMenu.style.display = optionsMenu.style.display === "none" ? "block" : "none";
+        }
+
+        function openForm() {
+            window.location.href = '/radio.html';
+        }
+
+        document.addEventListener('click', function(event) {
+            const isClickInside = document.querySelector('.button').contains(event.target);
+            if (!isClickInside) {
+                document.getElementById("optionsMenu").style.display = "none";
+            }
+        });
+    </script>
+
+   
+<script>
+function handleFileUpload(event) {
+    const file = event.target.files[0];
+    if (file) {
+        console.log("File uploaded:", file.name);
+    }
+}
+
+</script>

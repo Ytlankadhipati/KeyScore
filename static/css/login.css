@@ -1,0 +1,312 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background: var(--Black, #0D0D0D);
+    color: #fff;
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    display: flex;
+    width: 90%;
+    height: 90%;
+    max-width: 1200px;
+    background-color: #0D0D0D;
+    border-radius: 10px;
+    overflow: hidden;
+    gap: 50px;
+    transition: all 0.3s ease;
+}
+
+.left-section {
+    position: relative;
+    flex: 1;
+    background: var(--Grey-100, #181818);
+    border-radius: 40px;
+    padding: 50px;
+    overflow: hidden;
+}
+
+.left-section h1 {
+    font-size: 3rem;
+    padding-top: 50px;
+    font-weight: bold;
+    background: linear-gradient(148deg, #71FF59 -12.37%, #33FFE7 179.78%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent; /* Make text transparent */
+    margin-bottom: 20px;
+}
+
+.left-section p {
+    font-size: 1.2rem;
+    background: linear-gradient(148deg, #71FF59 -12.37%, #33FFE7 179.78%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    line-height: 1.5;
+}
+.left-section::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 336px;
+    height: 336px;
+    background: url('<path-to-image>') lightgray 50% / cover no-repeat;
+    opacity: 0.3;
+    filter: blur(150px);
+    border-radius: 50%;
+    z-index: 0;
+}
+
+
+.logo {
+    width: 60px;
+    height: 60px;
+    margin-right: 40px;
+    margin-bottom: 40px;
+    border-radius: 5px;
+}
+
+.right-section {
+    flex: 1;
+    background-color: #0d0d0d;
+    padding: 50px;
+    position: relative;
+}
+
+.form-container {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+h2 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    font-size: 1rem;
+    margin-bottom: 5px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 0.5px solid #62ff48;
+    background-color: #111;
+    color: #fff;
+}
+
+.forgot-password {
+    text-align: right;
+    margin-bottom: 20px;
+}
+
+.forgot-password a {
+    color: #32fc00;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.error-message {
+    color: rgb(246, 99, 99);
+    font-size: 8px;
+    display: none;
+    margin-top: 5px;
+}
+
+.btn {
+    width: 100%;
+    padding: 12px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.login-btn {
+    background: linear-gradient(148deg, #71FF59 -12.37%, #33FFE7 179.78%);
+    color: #000;
+}
+
+.google-btn {
+    background-color: #fff;
+    color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.divider {
+    text-align: center;
+    margin: 20px 0;
+    font-size: 0.9rem;
+    color: #aaa;
+}
+
+.google-btn::before {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png');
+    background-size: contain;
+    margin-right: 10px;
+}
+
+.right-section::after {
+    content: '';
+    position: absolute;
+    right: -50px;
+    bottom: -50px;
+    width: 150px;
+    height: 150px;
+    background: linear-gradient(145deg, #62ff48, #4cdfff);
+    border-radius: 50%;
+    filter: blur(50px);
+    z-index: -1;
+}
+
+@media (max-width: 768px) {
+    body {
+        flex-direction: column;
+        height: auto;
+        padding: 20px;
+    }
+
+    .container {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .left-section,
+    .right-section {
+        padding: 20px;
+    }
+
+    .left-section h1 {
+        font-size: 2rem;
+    }
+
+    .left-section p {
+        font-size: 1rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    .input-group input {
+        padding: 8px;
+    }
+
+    .btn {
+        padding: 10px;
+    }
+
+    .google-btn::before {
+        width: 18px;
+        height: 18px;
+    }
+
+    .right-section::after {
+        width: 100px;
+        height: 100px;
+        right: -30px;
+        bottom: -30px;
+        filter: blur(40px);
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .container {
+        width: 90%;
+    }
+
+    .left-section h1 {
+        font-size: 2.5rem;
+    }
+
+    .left-section p {
+        font-size: 1.1rem;
+    }
+
+    h2 {
+        font-size: 1.75rem;
+    }
+
+    .btn {
+        padding: 12px;
+    }
+
+    .google-btn::before {
+        width: 18px;
+        height: 18px;
+    }
+
+    .right-section::after {
+        width: 120px;
+        height: 120px;
+        filter: blur(45px);
+    }
+}
+
+@media (min-width: 1025px) {
+    .container {
+        width: 80%;
+    }
+
+    .left-section h1 {
+        font-size: 3rem;
+    }
+
+    .left-section p {
+        font-size: 1.2rem;
+    }
+
+    h2 {
+        font-size: 2rem;
+    }
+
+    .btn {
+        padding: 14px;
+    }
+
+    .google-btn::before {
+        width: 20px;
+        height: 20px;
+    }
+
+    .right-section::after {
+        width: 150px;
+        height: 150px;
+        filter: blur(50px);
+    }
+}
+
+.link p {
+    color: #a3a3a3;
+    font-size: 14px;
+    padding-top: 3%;
+}
+
+.link a {
+    color: #00FF66;
+    text-decoration: none;
+}
