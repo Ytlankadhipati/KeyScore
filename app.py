@@ -146,7 +146,7 @@ def send_feedback_email(name, email, rating, comments):
     msg = MIMEMultipart()
     msg['From'] = app.config['MAIL_USERNAME']
     msg['To'] = 'your-email@example.com'
-    msg['Subject'] = 'KOi mil gai kya'
+    msg['Subject'] = 'KISI NE YAAD KIYA'
     body = f"""
     Name: {name}
     Email: {email}

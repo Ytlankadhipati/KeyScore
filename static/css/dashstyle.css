@@ -643,24 +643,47 @@ body {
     }
 }
 
+/* Ensure main takes full width and grows properly */
 main {
     flex-grow: 1;
+    width: 100%;
     padding: 20px;
     padding-left: 90px;
+    box-sizing: border-box; /* Ensure padding doesn't affect layout */
     flex-wrap: wrap;
 }
 
+/* Mobile Responsiveness */
 @media (max-width: 768px) {
     main {
-        padding-left: 70px;  
+        padding-left: 70px;
     }
 }
 
 @media (max-width: 480px) {
     main {
-        padding-left: 50px;  
+        padding-left: 50px;
     }
 }
+
+/* Footer Styles */
+footer.footer {
+    width: 100%;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+    position: relative; /* Default position */
+    clear: both; /* Clears any floats above */
+    z-index: 1;
+}
+
+footer.footer .footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
 
 
 
@@ -1077,7 +1100,9 @@ button {
     right: 20px; 
     display: flex;
     align-items: center;
+    z-index: 1000;
     gap: 10px; 
+
 }
 
 .add_button {
@@ -1732,7 +1757,43 @@ button:hover {
     }
 }
 
+/* Footer Styles */
+footer.footer {
+    width: 100%;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+    position: relative; /* Default position */
+    clear: both; /* Clears any floats above */
+    z-index: 1;
+}
 
+footer.footer .footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+footer.footer a {
+    color: #62ff48;
+    text-decoration: none;
+}
+
+footer.footer a:hover {
+    text-decoration: underline;
+}
+
+footer.footer .social-links {
+    margin-top: 10px;
+}
+
+footer.footer .social-links img {
+    width: 30px;
+    height: 30px;
+    margin: 0 5px;
+    filter: invert(1); /* Makes icons white */
+}
 
 
 
