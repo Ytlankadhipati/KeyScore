@@ -17,181 +17,120 @@ body {
     height: 100vh;
 }
 
-.thank-you-page {
-    position: relative;
-    height: 100vh;
-    background-image: url('pexels-kaip-1341279.jpg');
-    background-position: center;
-    background-size: cover;
-    background-attachment: fixed;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
 
-.thank-you-page::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.4);
-    z-index: 1;
-}
 
-.thank-you-section {
-    text-align: center;
-    padding: 40px;
-    background-color: rgba(33, 30, 30, 0.8);
-    border-radius: 10px;
-    max-width: 600px;
-    width: 90%;
-    z-index: 2;
-    animation: fadeIn 1s ease-in-out;
-}
-
-.thank-you-section h2 {
-    color: #62ff48;
-    font-size: 3em;
-    margin-bottom: 20px;
-    animation: slideIn 1.5s ease-out;
-}
-
-.thank-you-section p {
-    font-size: 1.2em;
-    color: #2accae;
-    margin-bottom: 30px;
-    animation: fadeInUp 1.5s ease-out;
-}
-
-.thank-you-section .btn {
-    display: inline-block;
-    padding: 15px 30px;
-    background: linear-gradient(148deg, #71FF59 -12.37%, #33FFE7 179.78%);
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    font-size: 1.2em;
-    text-decoration: none;
-    transition: background-color 0.3s ease;
-    animation: bounceIn 2s ease-out;
-}
-
-.thank-you-section .btn:hover {
-    background-color: #47e740;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
-@keyframes slideIn {
-    from {
-        transform: translateY(-50px);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-
-@keyframes fadeInUp {
-    from {
-        transform: translateY(50px);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-
-@keyframes bounceIn {
-    0% {
-        transform: scale(0);
-        opacity: 0;
-    }
-    50% {
-        transform: scale(1.1);
-        opacity: 1;
-    }
-    100% {
-        transform: scale(1);
-    }
-}
-
-@media (max-width: 600px) {
-    .thank-you-section {
-        width: 90%;
-        padding: 20px;
-    }
-
-    .thank-you-section h2 {
-        font-size: 2.2em;
-    }
-
-    .thank-you-section p {
-        font-size: 1em;
-    }
-
-    .thank-you-section .btn {
-        padding: 12px 25px;
-    }
-}
-
-@media (min-width: 600px) and (max-width: 1024px) {
-    .thank-you-section {
-        width: 80%;
-    }
-
-    .thank-you-section h2 {
-        font-size: 2.5em;
-    }
-
-    .thank-you-section p {
-        font-size: 1.1em;
-    }
-}
-
+/* General Footer Styling */
 .footer {
     background-color: #232323;
     color: #fff;
-    padding: 20px;
+    padding: 30px 20px;
     text-align: center;
-    position:relative;
+    position: relative;
     width: 100%;
     bottom: 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+    border-top-left-radius: 15px; /* Rounded corners */
+    border-top-right-radius: 15px; /* Rounded corners */
 }
 
+/* Footer Content Styling */
 .footer-content p {
-    margin: 5px 0;
+    margin: 10px 0;
 }
 
-.social-icons {
-    margin-top: 15px;
+/* Social Links Section */
+.social-links {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* More space between icons */
+    flex-wrap: wrap;
 }
 
-.social-icon {
-    margin: 0 10px;
-    color: #fff;
-    font-size: 1.5rem;
-    text-decoration: none;
+/* Styling for each social icon */
+.social-links a {
+    display: inline-block;
+    transition: transform 0.3s ease;
 }
 
-.social-icon:hover {
+.social-links img {
+    filter: none;
+    max-width: 40px;
+    height: auto;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Hover effect on social icons */
+.social-links a:hover img {
+    transform: scale(1.2); /* Slightly increased size on hover */
+    opacity: 0.8;
+}
+
+/* Contact Us Section (Email Only) */
+.contact-options {
+    margin-top: 30px;
+    text-align: center;
+    font-size: 1.1rem;
+}
+
+.contact-options p {
+    margin: 8px 0;
+}
+
+/* Contact Icon Styling */
+.contact-icon {
+    max-width: 25px;
+    margin-right: 10px;
+    vertical-align: middle;
+    transition: transform 0.3s ease;
+}
+
+/* Hover effect on contact links */
+.contact-options a:hover .contact-icon {
+    transform: scale(1.2); /* Slight zoom effect on hover for icons */
+}
+
+/* Hover effect on contact text links */
+.contact-options a:hover {
     color: #a3d65e;
 }
 
-.social-icon i {
-    margin-right: 5px;
+/* Legal Links Styling */
+.footer-content a {
+    color: #fff;
+    text-decoration: none;
 }
+
+.footer-content a:hover {
+    color: #a3d65e; /* Hover effect on legal links */
+}
+
+/* Responsive Design for Medium Screens (Tablets) */
+@media (max-width: 768px) {
+    .social-links {
+        gap: 15px;
+    }
+    .contact-options p {
+        font-size: 1rem; /* Adjust font size for tablets */
+    }
+    .contact-icon {
+        max-width: 20px; /* Smaller icons for tablet */
+    }
+}
+
+/* Responsive Design for Small Screens (Mobiles) */
+@media (max-width: 480px) {
+    .social-links {
+        gap: 10px;
+    }
+    .contact-options p {
+        font-size: 0.9rem; /* Adjust font size for mobile */
+    }
+    .contact-icon {
+        max-width: 18px; /* Smaller icons for mobile */
+    }
+}
+
 
 .parent-dashbaord {
     background-color: grey;
@@ -324,7 +263,7 @@ body {
 .calendar-container {
     width: 478px;
     height: 266px;
-    max-width: 100%; /* Prevent container from exceeding screen width */
+    max-width: 100%; 
     background-color: #2c2c2c;
     border-radius: 10px;
     padding: 15px;
@@ -336,7 +275,7 @@ body {
 .dashboard {
     display: flex;
     justify-content: space-between;
-    flex-wrap: wrap; /* Allows wrapping on smaller screens */
+    flex-wrap: wrap; 
 }    
    
     
@@ -397,7 +336,6 @@ body {
     margin-top: 50px;
 }
 
-/* Button for creating a new folder (Google Drive-style) */
 .suggest-link {
     font-size: 16px;
     color: #1a73e8;
@@ -416,12 +354,10 @@ body {
 .suggest-link i {
     margin-right: 8px;
 }
-/* Show the dropdown menu when the 'show' class is added */
 .dropdown-menu.show {
     display: block !important;
 }
 
-/* Modal as small dialog box */
 .modal {
     display: none;
     position: fixed;
@@ -667,22 +603,22 @@ main {
 }
 
 /* Footer Styles */
-footer.footer {
+.footer {
     width: 100%;
     background-color: #333;
     color: #fff;
     text-align: center;
     padding: 20px 0;
-    position: relative; /* Default position */
-    clear: both; /* Clears any floats above */
+    position: relative; 
+    clear: both; 
     z-index: 1;
 }
 
-footer.footer .footer-content {
+.footer-content {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
-}
+} 
 
 
 
@@ -901,7 +837,7 @@ button {
     display: flex;
     gap: 10px;
     margin-top: 20px;
-    margin-left: 20px; /* Align with other sections */
+    margin-left: 20px;
 }
 
 .tag {
@@ -952,7 +888,7 @@ button {
 /* File Name */
 .file-name h5 {
     padding: 8px;
-    font-size: 14px;
+    font-size: 11px;
     font-weight: 100;
     color: #fff;
     overflow: hidden;
@@ -1597,15 +1533,6 @@ th { color: #aaa; }
     text-decoration: underline;
 }
 
-/* Footer Section */
-.footer {
-    text-align: center;
-    margin-top: 40px;
-    font-size: 14px;
-    color: #b0b0b0;
-}
-
-/* Button Style */
 button {
     background-color: #62FF48;
     color: #0D0D0D; /* Dark text on button */
@@ -1622,9 +1549,6 @@ button:hover {
     background-color: #4caf50;
 }
 
-/* Media Queries for Responsive Design */
-
-/* Tablets and small laptops (up to 1024px) */
 @media (max-width: 1024px) {
     .help-header h1 {
         font-size: 28px;
@@ -1641,10 +1565,6 @@ button:hover {
 
     .contact-section ul li {
         font-size: 14px;
-    }
-
-    .footer {
-        font-size: 12px;
     }
 
     .help-page-container {
@@ -1682,10 +1602,6 @@ button:hover {
 
     .contact-section ul li {
         font-size: 14px;
-    }
-
-    .footer {
-        font-size: 10px;
     }
 
     /* Stack sections vertically */
@@ -1734,10 +1650,6 @@ button:hover {
         font-size: 12px;
     }
 
-    .footer {
-        font-size: 10px;
-    }
-
     .video-tutorial h3 {
         font-size: 18px;
     }
@@ -1756,9 +1668,7 @@ button:hover {
         padding: 10px;
     }
 }
-
-/* Footer Styles */
-footer.footer {
+.footer {
     width: 100%;
     background-color: #333;
     color: #fff;
@@ -1767,34 +1677,176 @@ footer.footer {
     position: relative; /* Default position */
     clear: both; /* Clears any floats above */
     z-index: 1;
+    margin-top: 20px;
+}
+.thank-you-page {
+    position: relative;
+    height: 100vh;
+    background-image: url('pexels-kaip-1341279.jpg');
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-footer.footer .footer-content {
+.thank-you-page::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1;
+}
+
+.thank-you-section {
+    text-align: center;
+    padding: 40px;
+    background-color: rgba(33, 30, 30, 0.8);
+    border-radius: 10px;
+    max-width: 600px;
+    width: 90%;
+    z-index: 2;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.thank-you-section h2 {
+    color: #62ff48;
+    font-size: 3em;
+    margin-bottom: 20px;
+    animation: slideIn 1.5s ease-out;
+}
+
+.thank-you-section p {
+    font-size: 1.2em;
+    color: #2accae;
+    margin-bottom: 30px;
+    animation: fadeInUp 1.5s ease-out;
+}
+
+.thank-you-section .btn {
+    display: inline-block;
+    padding: 15px 30px;
+    background: linear-gradient(148deg, #71FF59 -12.37%, #33FFE7 179.78%);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2em;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    animation: bounceIn 2s ease-out;
+}
+
+.thank-you-section .btn:hover {
+    background-color: #47e740;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes bounceIn {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@media (max-width: 600px) {
+    .thank-you-section {
+        width: 90%;
+        padding: 20px;
+    }
+
+    .thank-you-section h2 {
+        font-size: 2.2em;
+    }
+
+    .thank-you-section p {
+        font-size: 1em;
+    }
+
+    .thank-you-section .btn {
+        padding: 12px 25px;
+    }
+}
+
+@media (min-width: 600px) and (max-width: 1024px) {
+    .thank-you-section {
+        width: 80%;
+    }
+
+    .thank-you-section h2 {
+        font-size: 2.5em;
+    }
+
+    .thank-you-section p {
+        font-size: 1.1em;
+    }
+}
+
+.footer-content {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
 }
 
-footer.footer a {
+.footer a {
     color: #62ff48;
     text-decoration: none;
 }
 
-footer.footer a:hover {
+.footer a:hover {
     text-decoration: underline;
 }
 
-footer.footer .social-links {
+.footer .social-links {
     margin-top: 10px;
 }
 
-footer.footer .social-links img {
+.footer .social-links img {
     width: 30px;
     height: 30px;
     margin: 0 5px;
     filter: invert(1); /* Makes icons white */
 }
-
 
 
 

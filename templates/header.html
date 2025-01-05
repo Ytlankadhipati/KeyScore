@@ -58,16 +58,7 @@ document.querySelector('.sidebar').addEventListener('mouseleave', function () {
     </script>
     <nav class="nav">
         <a href="{{ url_for('dashboard') }}" class="nav-item"><i class="fas fa-home"></i></a>
-        <div class="nav-item"><i class="fas fa-file-upload"></i> 
-                <!-- Dropdown content -->
-                <div class="dropdown-content">
-                    <a href="{{ url_for('Project') }}">Uploaded files </a>
-                    
-                    <a href="#">Academics</a>
-                    <a href="#">Online</a>
-                </div>
-            </div>  
-        
+        <a href="{{ url_for('Project') }}" class="nav-item"><i class="fas fa-file-upload"></i> 
         <a href="#" class="nav-item"> <i class="fas fa-trash-alt"></i></i></a>
         <a href="{{ url_for('feedback') }}" class="nav-item"><i class="fas fa-comments"></i></i> 
 

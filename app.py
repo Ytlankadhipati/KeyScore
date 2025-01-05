@@ -203,7 +203,6 @@ def Project():
         FROM files 
         WHERE user_id = ? 
         ORDER BY upload_time DESC
-        LIMIT 25
         '''
     else:
         query = '''
