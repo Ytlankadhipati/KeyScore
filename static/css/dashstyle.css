@@ -17,9 +17,6 @@ body {
     height: 100vh;
 }
 
-
-
-/* General Footer Styling */
 .footer {
     background-color: #232323;
     color: #fff;
@@ -28,26 +25,23 @@ body {
     position: relative;
     width: 100%;
     bottom: 0;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
-    border-top-left-radius: 15px; /* Rounded corners */
-    border-top-right-radius: 15px; /* Rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
 }
 
-/* Footer Content Styling */
 .footer-content p {
     margin: 10px 0;
 }
 
-/* Social Links Section */
 .social-links {
     margin-top: 20px;
     display: flex;
     justify-content: center;
-    gap: 20px; /* More space between icons */
+    gap: 20px;
     flex-wrap: wrap;
 }
 
-/* Styling for each social icon */
 .social-links a {
     display: inline-block;
     transition: transform 0.3s ease;
@@ -60,13 +54,11 @@ body {
     transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-/* Hover effect on social icons */
 .social-links a:hover img {
-    transform: scale(1.2); /* Slightly increased size on hover */
+    transform: scale(1.2);
     opacity: 0.8;
 }
 
-/* Contact Us Section (Email Only) */
 .contact-options {
     margin-top: 30px;
     text-align: center;
@@ -77,7 +69,6 @@ body {
     margin: 8px 0;
 }
 
-/* Contact Icon Styling */
 .contact-icon {
     max-width: 25px;
     margin-right: 10px;
@@ -85,50 +76,47 @@ body {
     transition: transform 0.3s ease;
 }
 
-/* Hover effect on contact links */
 .contact-options a:hover .contact-icon {
-    transform: scale(1.2); /* Slight zoom effect on hover for icons */
+    transform: scale(1.2);
 }
 
-/* Hover effect on contact text links */
 .contact-options a:hover {
     color: #a3d65e;
 }
 
-/* Legal Links Styling */
 .footer-content a {
     color: #fff;
     text-decoration: none;
 }
 
 .footer-content a:hover {
-    color: #a3d65e; /* Hover effect on legal links */
+    color: #a3d65e;
 }
 
-/* Responsive Design for Medium Screens (Tablets) */
 @media (max-width: 768px) {
     .social-links {
         gap: 15px;
     }
     .contact-options p {
-        font-size: 1rem; /* Adjust font size for tablets */
+        font-size: 1rem;
     }
     .contact-icon {
-        max-width: 20px; /* Smaller icons for tablet */
+        max-width: 20px;
     }
 }
 
-/* Responsive Design for Small Screens (Mobiles) */
 @media (max-width: 480px) {
     .social-links {
         gap: 10px;
     }
     .contact-options p {
-        font-size: 0.9rem; /* Adjust font size for mobile */
+        font-size: 0.9rem;
     }
     .contact-icon {
-        max-width: 18px; /* Smaller icons for mobile */
+        max-width: 18px;
     }
+}
+
 }
 
 

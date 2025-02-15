@@ -195,7 +195,7 @@ def Project():
         FROM files 
         WHERE user_id = ? 
         ORDER BY file_name DESC
-        LIMIT 25
+        
         '''
     elif sort_order == 'none':
         query = '''
@@ -210,7 +210,7 @@ def Project():
         FROM files 
         WHERE user_id = ? 
         ORDER BY file_name ASC
-        LIMIT 25
+       
         '''
     
     files = conn.execute(query, (session['user_id'],)).fetchall()
@@ -332,7 +332,8 @@ def register():
         conn.close()
 
     return redirect(url_for('index'))
+    
 
 if __name__ == '__main__':
     init_db()
-    app.run(debug=True)
+app.run(debug=True)

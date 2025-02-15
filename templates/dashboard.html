@@ -1,223 +1,131 @@
-
-
-        {% include 'header.html' %}
-        <main>
-            <header class="header">
-                {% if username %}
-                <h2>Hello, {{ username }}!</h2>
-                {% else %}
-                <h2>Hello, Guest!</h2>
-                {% endif %}
-                <p>How're you doin'?</p>
-            </header>
-            <section class="parent-dashbaord">
-                
-
-            <section class="dashboard">
-                <div class="growth">
-                    <h2>Growth</h2>
-                    <div class="donut-chart"></div>
-                    <div class="legend">
-                        <div class="legend-item">
-                            <div class="legend-color" style="background-color: #a3d65e;"></div>
-                            <span>Clarity: 40%</span>
-                        </div>
-                        <div class="legend-item">
-                            <div class="legend-color" style="background-color: #5ab963;"></div>
-                            <span>Earn: 30%</span>
-                        </div>
-                        <div class="legend-item">
-                            <div class="legend-color" style="background-color: #3b7f42;"></div>
-                            <span>Growth: 30%</span>
-                        </div>
-                    </div>
+{% include 'header.html' %}
+<main>
+    <header class="header">
+        {% if username %}
+        <h2>Hello, {{ username }}!</h2>
+        {% else %}
+        <h2>Hello, Guest!</h2>
+        {% endif %}
+        <p>How're you doin'?</p>
+    </header>
+    <section class="parent-dashbaord">
+    <section class="dashboard">
+        <div class="growth">
+            <h2>Growth</h2>
+            <div class="donut-chart"></div>
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-color" style="background-color: #a3d65e;"></div>
+                    <span>Clarity: 40%</span>
                 </div>
-                <div class="calendar-container">
-                    <div class="calendar-header">
-                        <button  id="prev-month" class="previous">&lt;</button>
-                        <span id="calendar-title"></span>
-                        <button id="next-month" class="previous">&gt;</button>
-                    </div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th class="sunday">Sun  </th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th class="saturday">Sat</th>
-                            </tr>
-                        </thead>
-                        <tbody id="calendar-body"></tbody>
-                    </table>
+                <div class="legend-item">
+                    <div class="legend-color" style="background-color: #5ab963;"></div>
+                    <span>Earn: 30%</span>
                 </div>
-                
-            </section>
-        </section>
-        
+                <div class="legend-item">
+                    <div class="legend-color" style="background-color: #3b7f42;"></div>
+                    <span>Growth: 30%</span>
+                </div>
+            </div>
+        </div>
+        <div class="calendar-container">
+            <div class="calendar-header">
+                <button  id="prev-month" class="previous">&lt;</button>
+                <span id="calendar-title"></span>
+                <button id="next-month" class="previous">&gt;</button>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th class="sunday">Sun  </th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th class="saturday">Sat</th>
+                    </tr>
+                </thead>
+                <tbody id="calendar-body"></tbody>
+            </table>
+        </div>
+    </section>
+    </section>
 
-       
+    {% include 'footer.html' %}  
+</main>
 
-               
-            
-        {% include 'footer.html' %}  
-        </main>
-        
-    </div>
-    
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.11.3/main.min.js"></script>
-    <script>
-function generateCalendar() {
-    const calendarElement = document.getElementById("live-calendar");
-    const currentDate = new Date();
-    
-    const month = currentDate.getMonth(); // 0-11 (0 for January, 11 for December)
-    const year = currentDate.getFullYear(); // Full year (2024, etc.)
-    
-    const firstDayOfMonth = new Date(year, month, 1);
-    const lastDayOfMonth = new Date(year, month + 1, 0); // Get the last day of the month
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.11.3/main.min.js"></script>
+<script>
+    const holidays = {
+        '2025-01-01': 'New Year\'s Day',
+        '2025-01-14': 'Makar Sankranti',
+        '2025-01-26': 'Republic Day',
+        '2025-02-14': 'Valentine\'s Day',
+        '2025-03-04': 'Holi',
+        '2025-04-06': 'Ram Navami',
+        '2025-04-14': 'Baisakhi',
+        '2025-05-01': 'Labour Day',
+        '2025-05-05': 'Eid ul-Fitr',
+        '2025-08-15': 'Independence Day',
+        '2025-08-22': 'Raksha Bandhan',
+        '2025-09-17': 'Onam',
+        '2025-09-25': 'Eid ul-Adha',
+        '2025-10-02': 'Gandhi Jayanti',
+        '2025-10-21': 'Dussehra',
+        '2025-11-12': 'Diwali',
+        '2025-11-14': 'Govardhan Puja',
+        '2025-11-15': 'Bhai Dooj',
+        '2025-12-25': 'Christmas',
+        '2025-12-30': 'Guru Nanak Jayanti',
+    };
 
-    const firstDay = firstDayOfMonth.getDay(); // Day of the week for 1st day (0 = Sunday, 6 = Saturday)
-    const totalDaysInMonth = lastDayOfMonth.getDate(); // Number of days in the month
+    let [currentYear, currentMonth] = [new Date().getFullYear(), new Date().getMonth()];
 
-    const holidays = [
-        { date: 1, name: 'New Year' },  // Example: New Year on Jan 1
-        { date: 25, name: 'Christmas' },  // Example: Christmas on Dec 25
-        { date: 14, name: 'Valentine\'s Day' },  // Example: Valentine's Day on Feb 14
-        { date: 15, name: 'Diwali' },  // Example: Diwali (15th for this example)
-        { date: 31, name: 'Halloween' },  // Example: Halloween on Oct 31
-    ];
+    function generateCalendar(year, month) {
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+        const firstDay = new Date(year, month, 1).getDay();
+        const tbody = document.getElementById('calendar-body');
+        document.getElementById('calendar-title').innerText = 
+            `${['January', 'February', 'Mar', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][month]} ${year}`;
 
-    // Table structure
-    let calendarHTML = '<div class="calendar-header">';
-    calendarHTML += `<span class="month-name">${getMonthName(month)} ${year}</span>`;
-    calendarHTML += '</div>';
-    calendarHTML += '<table>';
+        tbody.innerHTML = ''; let date = 1;
+        for (let i = 0; i < 6; i++) {
+            const row = document.createElement('tr');
+            for (let j = 0; j < 7; j++) {
+                const cell = document.createElement('td');
+                if (i === 0 && j < firstDay || date > daysInMonth) cell.classList.add('empty');
+                else {
+                    const cellDate = `${year}-${String(month + 1).padStart(2, '0')}-${String(date).padStart(2, '0')}`;
+                    cell.innerText = date;
 
-    // Header row (Day of the week labels)
-    const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    calendarHTML += '<tr class="header">';
-    for (let i = 0; i < 7; i++) {
-        calendarHTML += `<td>${daysOfWeek[i]}</td>`;
-    }
-    calendarHTML += '</tr>';
-
-    // First empty cells before the 1st of the month
-    let date = 1;
-    for (let i = 0; i < 6; i++) {  // Up to 6 rows in a month
-        calendarHTML += '<tr>';
-
-        for (let j = 0; j < 7; j++) {
-            if (i === 0 && j < firstDay) {
-                calendarHTML += '<td class="empty"></td>';  // Empty cells before the 1st
-            } else if (date <= totalDaysInMonth) {
-                const isToday = (date === currentDate.getDate());
-                const isHoliday = holidays.some(holiday => holiday.date === date);
-                const holidayClass = isHoliday ? 'holiday' : '';
-                const todayClass = isToday ? 'today' : '';
-                const dayClass = `${holidayClass} ${todayClass}`.trim();
-                calendarHTML += `<td class="${dayClass}" title="${getHolidayName(date)}">${date}</td>`;
-                date++;
-            } else {
-                calendarHTML += '<td class="empty"></td>';  // Empty cells after the last day of the month
-            }
-        }
-        calendarHTML += '</tr>';
-
-        if (date > totalDaysInMonth) break;
-    }
-
-    calendarHTML += '</table>';
-
-    // Insert the calendar HTML into the live calendar div
-    calendarElement.innerHTML = calendarHTML;
-}
-
-// Get the month name (January, February, etc.)
-function getMonthName(monthIndex) {
-    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-    return monthNames[monthIndex];
-}
-
-// Get holiday name for a specific date
-function getHolidayName(date) {
-    const holidays = [
-        { date: 1, name: 'New Year' },
-        { date: 25, name: 'Christmas' },
-        { date: 14, name: 'Valentine\'s Day' },
-        { date: 15, name: 'Diwali' },
-        { date: 31, name: 'Halloween' },
-    ];
-    
-    const holiday = holidays.find(holiday => holiday.date === date);
-    return holiday ? holiday.name : '';
-}
-
-// Run the function when the page loads
-window.onload = generateCalendar;
-
-
-    </script>
-
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-    <script>
-        const holidays = {
-            '2024-01-01': 'New Year\'s Day', '2024-01-26': 'Republic Day',
-            '2024-02-14': 'Valentine\'s Day', '2024-04-10': 'Ram Navami',
-            '2024-05-01': 'Labour Day', '2024-08-15': 'Independence Day',
-            '2024-10-02': 'Gandhi Jayanti', '2024-10-15': 'Dussehra',
-            '2024-11-12': 'Diwali', '2024-12-25': 'Christmas',
-        };
-
-        let [currentYear, currentMonth] = [new Date().getFullYear(), new Date().getMonth()];
-
-        function generateCalendar(year, month) {
-            const daysInMonth = new Date(year, month + 1, 0).getDate();
-            const firstDay = new Date(year, month, 1).getDay();
-            const tbody = document.getElementById('calendar-body');
-            document.getElementById('calendar-title').innerText = 
-                `${['January', 'February', 'Mar', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][month]} ${year}`;
-
-            tbody.innerHTML = ''; let date = 1;
-            for (let i = 0; i < 6; i++) {
-                const row = document.createElement('tr');
-                for (let j = 0; j < 7; j++) {
-                    const cell = document.createElement('td');
-                    if (i === 0 && j < firstDay || date > daysInMonth) cell.classList.add('empty');
-                    else {
-                        const cellDate = `${year}-${String(month + 1).padStart(2, '0')}-${String(date).padStart(2, '0')}`;
-                        cell.innerText = date;
-
-                        // Highlight holidays
-                        if (holidays[cellDate]) {
-                            cell.classList.add('holiday');
-                            cell.setAttribute('data-holiday', holidays[cellDate]);
-                        }
-
-                        // Highlight today
-                        if (year === new Date().getFullYear() && month === new Date().getMonth() && date === new Date().getDate())
-                            cell.classList.add('today');
-                        date++;
+                    // Highlight holidays
+                    if (holidays[cellDate]) {
+                        cell.classList.add('holiday');
+                        cell.setAttribute('data-holiday', holidays[cellDate]);
                     }
-                    row.appendChild(cell);
+
+                    // Highlight today
+                    if (year === new Date().getFullYear() && month === new Date().getMonth() && date === new Date().getDate())
+                        cell.classList.add('today');
+                    date++;
                 }
-                tbody.appendChild(row);
-                if (date > daysInMonth) break;
+                row.appendChild(cell);
             }
+            tbody.appendChild(row);
+            if (date > daysInMonth) break;
         }
+    }
 
-        document.getElementById('prev-month').onclick = () => {
-            currentMonth = (currentMonth + 11) % 12;
-            if (currentMonth === 11) currentYear--;
-            generateCalendar(currentYear, currentMonth);
-        };
-
-        document.getElementById('next-month').onclick = () => {
-            currentMonth = (currentMonth + 1) % 12;
-            if (currentMonth === 0) currentYear++;
-            generateCalendar(currentYear, currentMonth);
-        };
-
+    document.getElementById('prev-month').onclick = () => {
+        currentMonth = (currentMonth + 11) % 12;
+        if (currentMonth === 11) currentYear--;
         generateCalendar(currentYear, currentMonth);
-    </script>
-    
-    
-    
+    };
+
+    document.getElementById('next-month').onclick = () => {
+        currentMonth = (currentMonth + 1) % 12;
+        if (currentMonth === 0) currentYear++;
+        generateCalendar(currentYear, currentMonth);
+    };
+
+    generateCalendar(currentYear, currentMonth);
+</script>
+
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
 </body>
 </html>
