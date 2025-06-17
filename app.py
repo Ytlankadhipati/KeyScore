@@ -13,14 +13,28 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from flask_mail import Mail, Message
 
+# Initialize Flask app
 app = Flask(__name__)
-app.secret_key = 'your_secret_key'
+
+# Load environment variables
+app.secret_key = os.environ.get('SECRET_KEY')
 
 UPLOAD_FOLDER = 'uploads'
 ALLOWED_EXTENSIONS = {'jpg', 'png', 'gif', 'pdf'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
+# Configure mail settings from environment variables
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USE_SSL'] = True
+app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
+app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
+app.config['MAIL_DEFAULT_SENDER'] = os.environ.get('MAIL_USERNAME')
+
+mail = Mail(app)
+
+# Database connection
 def get_db_connection():
     conn = sqlite3.connect('users.db')
     conn.row_factory = sqlite3.Row
@@ -122,15 +136,6 @@ def upload_file():
 def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
-app.config['MAIL_SERVER'] = 'smtp.gmail.com'
-app.config['MAIL_PORT'] = 465
-app.config['MAIL_USE_SSL'] = True
-app.config['MAIL_USERNAME'] = 'rishuawasthi1020@gmail.com'
-app.config['MAIL_PASSWORD'] = 'vrsz ttrt fukt rvia'
-app.config['MAIL_DEFAULT_SENDER'] = 'rishuawasthi1020@gmail.com'
-
-mail = Mail(app)
-
 @app.route('/feedback', methods=['GET', 'POST'])
 def feedback():
     if request.method == 'POST':
@@ -145,7 +150,7 @@ def feedback():
 def send_feedback_email(name, email, rating, comments):
     msg = MIMEMultipart()
     msg['From'] = app.config['MAIL_USERNAME']
-    msg['To'] = 'your-email@example.com'
+    msg['To'] = 'your-email@example.com'  # Replace with your feedback receiver address
     msg['Subject'] = 'KISI NE YAAD KIYA'
     body = f"""
     Name: {name}
@@ -180,47 +185,56 @@ def dashboard():
 
     return render_template('dashboard.html', username=session['username'], files=files)
 
-@app.route('/Project')
+@app.route('/Project', methods=['GET'])
 def Project():
     if 'user_id' not in session:
         return redirect(url_for('index'))
 
+    search_query = request.args.get('search', '').strip()
     sort_order = request.args.get('sort', 'none')
 
     conn = get_db_connection()
-    
-    if sort_order == 'desc':
+
+    if search_query:
         query = '''
         SELECT id, file_name, file_path, upload_time 
         FROM files 
-        WHERE user_id = ? 
-        ORDER BY file_name DESC
-        
-        '''
-    elif sort_order == 'none':
-        query = '''
-        SELECT id, file_name, file_path, upload_time 
-        FROM files 
-        WHERE user_id = ? 
+        WHERE user_id = ? AND file_name LIKE ? 
         ORDER BY upload_time DESC
         '''
+        files = conn.execute(query, (session['user_id'], f"%{search_query}%")).fetchall()
     else:
-        query = '''
-        SELECT id, file_name, file_path, upload_time 
-        FROM files 
-        WHERE user_id = ? 
-        ORDER BY file_name ASC
-       
-        '''
-    
-    files = conn.execute(query, (session['user_id'],)).fetchall()
+        if sort_order == 'desc':
+            query = '''
+            SELECT id, file_name, file_path, upload_time 
+            FROM files 
+            WHERE user_id = ? 
+            ORDER BY file_name DESC
+            '''
+        elif sort_order == 'asc':
+            query = '''
+            SELECT id, file_name, file_path, upload_time 
+            FROM files 
+            WHERE user_id = ? 
+            ORDER BY file_name ASC
+            '''
+        else:
+            query = '''
+            SELECT id, file_name, file_path, upload_time 
+            FROM files 
+            WHERE user_id = ? 
+            ORDER BY upload_time DESC
+            '''
+        files = conn.execute(query, (session['user_id'],)).fetchall()
+
     conn.close()
 
     return render_template(
         'Project.html',
         username=session['username'],
         files=files,
-        sort_order=sort_order
+        sort_order=sort_order,
+        search_query=search_query
     )
 
 @app.route('/delete_file/<filename>')
@@ -332,8 +346,7 @@ def register():
         conn.close()
 
     return redirect(url_for('index'))
-    
 
 if __name__ == '__main__':
     init_db()
-app.run(debug=True)
+    app.run(debug=True)
