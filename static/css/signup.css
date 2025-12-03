@@ -107,7 +107,26 @@ body {
     font-size: 1rem;
     outline: none;
     display: block;
+    transition: 
+        transform 0.3s ease, 
+        box-shadow 0.3s ease, 
+        border-color 0.3s ease;
 }
+
+/* Hover zoom effect */
+.input-group input:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 8px #62ff48;
+    border-color: #aaff00;
+}
+
+/* Optional: Zoom + highlight on focus */
+.input-group input:focus {
+    transform: scale(1.03);
+    box-shadow: 0 0 10px #62ff48;
+    border-color: #aaff00;
+}
+
 
 .error-message {
     color: rgb(246, 99, 99);

@@ -40,52 +40,60 @@
         const fileInput = document.getElementById('fileInput');
         const previewContainer = document.querySelector('.preview-container');
         const uploadButtonContainer = document.getElementById('uploadButtonContainer');
-
+        const fileUploadArea = document.querySelector('.file-upload-area');
+    
+        // If core elements are missing, stop gracefully (prevents null errors)
+        if (!previewContainer || !uploadButtonContainer) {
+            // nothing to do on pages without the upload UI
+            return;
+        }
+    
         const handleFiles = (files) => {
             previewContainer.innerHTML = '';
             uploadButtonContainer.innerHTML = '';
-
+    
             Array.from(files).forEach((file) => {
                 const reader = new FileReader();
-
+    
                 const createPreview = (src, name) => {
                     const preview = document.createElement('div');
                     preview.classList.add('file-preview', 'd-flex', 'align-items-center', 'm-2');
-
+    
                     const img = document.createElement('img');
                     img.src = src;
                     img.alt = name;
                     img.style.width = '50px';
                     img.style.height = '50px';
                     img.style.objectFit = 'contain';
-
+    
                     const fileName = document.createElement('span');
                     fileName.textContent = name;
                     fileName.style.margin = '0 10px';
-
+    
                     const removeBtn = document.createElement('button');
                     removeBtn.textContent = '×';
                     removeBtn.classList.add('remove-btn', 'btn', 'btn-danger', 'btn-sm');
                     removeBtn.addEventListener('click', () => preview.remove());
-
+    
                     preview.appendChild(img);
                     preview.appendChild(fileName);
                     preview.appendChild(removeBtn);
                     previewContainer.appendChild(preview);
                 };
-
-                if (file.type.startsWith('image/')) {
+    
+                if (file.type && file.type.startsWith('image/')) {
                     reader.onload = (e) => createPreview(e.target.result, file.name);
                     reader.readAsDataURL(file);
-                } else if (file.type === 'application/pdf') {
-                    const pdfIcon = 'https://cdn-icons-png.flaticon.com/512/337/337946.png'; 
+                } else if (file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf')) {
+                    // pdf may not always have file.type set in some browsers/environments
+                    const pdfIcon = 'https://cdn-icons-png.flaticon.com/512/337/337946.png';
                     createPreview(pdfIcon, file.name);
                 } else {
-                    const fileIcon = 'https://cdn-icons-png.flaticon.com/512/136/136549.png'; 
+                    const fileIcon = 'https://cdn-icons-png.flaticon.com/512/136/136549.png';
                     createPreview(fileIcon, file.name);
                 }
             });
-
+    
             if (files.length > 0) {
                 const uploadButton = document.createElement('button');
                 uploadButton.textContent = 'Upload Files';
@@ -95,32 +103,36 @@
                 uploadButton.style.marginTop = '10px';
                 uploadButton.addEventListener('click', () => {
                     const form = document.getElementById('uploadForm');
-                    form.submit();
+                    if (form) form.submit();
                 });
                 uploadButtonContainer.appendChild(uploadButton);
             }
         };
-
-        fileInput.addEventListener('change', (event) => handleFiles(event.target.files));
-
-        const fileUploadArea = document.querySelector('.file-upload-area');
-        fileUploadArea.addEventListener('dragover', (event) => {
-            event.preventDefault();
-            fileUploadArea.style.borderColor = '#0056cc';
-            fileUploadArea.style.backgroundColor = '#e9f5ff';
-        });
-
-        fileUploadArea.addEventListener('dragleave', () => {
-            fileUploadArea.style.borderColor = '#006eff';
-            fileUploadArea.style.backgroundColor = '#f8fbff';
-        });
-
-        fileUploadArea.addEventListener('drop', (event) => {
-            event.preventDefault();
-            fileUploadArea.style.borderColor = '#006eff';
-            fileUploadArea.style.backgroundColor = '#f8fbff';
-            handleFiles(event.dataTransfer.files);
-        });
+    
+        if (fileInput) {
+            fileInput.addEventListener('change', (event) => handleFiles(event.target.files));
+        }
+    
+        // Drag & drop handlers only when the area exists
+        if (fileUploadArea) {
+            fileUploadArea.addEventListener('dragover', (event) => {
+                event.preventDefault();
+                fileUploadArea.style.borderColor = '#0056cc';
+                fileUploadArea.style.backgroundColor = '#e9f5ff';
+            });
+    
+            fileUploadArea.addEventListener('dragleave', () => {
+                fileUploadArea.style.borderColor = '#006eff';
+                fileUploadArea.style.backgroundColor = '#f8fbff';
+            });
+    
+            fileUploadArea.addEventListener('drop', (event) => {
+                event.preventDefault();
+                fileUploadArea.style.borderColor = '#006eff';
+                fileUploadArea.style.backgroundColor = '#f8fbff';
+                handleFiles(event.dataTransfer.files);
+            });
+        }
     });
-</script>
-
+    </script>
+    

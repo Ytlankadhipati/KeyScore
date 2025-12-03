@@ -6,9 +6,14 @@
     </div>
 
     <div class="search-bar">
-        <input type="text" placeholder="Search">
-        <i class="fas fa-search"></i>
+        <form id="searchForm" method="GET" action="{{ url_for('Project') }}">
+            <input type="text" name="search" id="searchInput" placeholder="Search files..." value="{{ search_query }}">
+            <button type="submit">
+                <i class="fas fa-search"></i>
+            </button>
+        </form>
     </div>
+    
     <div class="suggest-container">
         <a href="#" class="suggest-link" id="create-folder-btn">
             <p><i class="fas fa-plus-circle"></i> Create New Folder</p>
@@ -26,23 +31,31 @@
         </div>
 
         <script>
-            var modal = document.getElementById("myModal");
-            var btn = document.getElementById("create-folder-btn");
-            var span = document.getElementsByClassName("close")[0];
+            // Create-folder modal logic (keeps your behavior)
+            (function(){
+                var modal = document.getElementById("myModal");
+                var btn = document.getElementById("create-folder-btn");
+                var span = document.getElementsByClassName("close")[0];
 
-            btn.onclick = function() {
-                modal.style.display = "block";
-            }
-
-            span.onclick = function() {
-                modal.style.display = "none";
-            }
-
-            window.onclick = function(event) {
-                if (event.target == modal) {
-                    modal.style.display = "none";
+                if (btn) {
+                    btn.addEventListener('click', function(e){
+                        e.preventDefault();
+                        modal.style.display = "block";
+                    });
                 }
-            }
+
+                if (span) {
+                    span.addEventListener('click', function(){
+                        modal.style.display = "none";
+                    });
+                }
+
+                window.addEventListener('click', function(event) {
+                    if (event.target == modal) {
+                        modal.style.display = "none";
+                    }
+                });
+            })();
         </script>
 
         <div class="dropdown">
@@ -51,14 +64,15 @@
             </button>
             <div class="dropdown-menu">
                 <a href="{{ url_for('Project', sort='none') }}" 
-                class="sort-btn {% if sort_order == 'none' %}active{% endif %}">
-                 None
-             </a>
-         
+                   class="sort-btn {% if sort_order == 'none' %}active{% endif %}">
+                    None
+                </a>
+
                 <a href="{{ url_for('Project', sort='asc') }}" 
                    class="sort-btn {% if sort_order == 'asc' %}active{% endif %}">
                     Sort A-Z
                 </a>
+
                 <a href="{{ url_for('Project', sort='desc') }}" 
                    class="sort-btn {% if sort_order == 'desc' %}active{% endif %}">
                     Sort Z-A
@@ -67,82 +81,101 @@
         </div>
     </div>
 
-    <!-- <div class="tags">
-        <div class="folders">
-            {% for folder in folders %}
-                <div class="tag active">{{ folder }}</div>
-            {% endfor %}
-        </div> -->
-       
+    <div class="cards">
+        {% for file in files %}
+        <div class="card">
+            <div class="card-kebab">
+                <!-- Kebab Menu for Delete, Download, and Preview -->
+                <div class="dropdown">
+                    <button class="dropdown-toggle" type="button" id="dropdownMenuButton{{ file['id'] }}"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                            onclick="toggleDropdown(event, '{{ file['id'] }}')">
+                        <i class="fas fa-ellipsis-v"></i>
+                    </button>
 
-        <div class="cards">
-            {% for file in files %}
-            <div class="card">
-                <div class="card-kebab">
-                    <!-- Kebab Menu for Delete, Download, and Preview -->
-                    <div class="dropdown">
-                        <button class="dropdown-toggle" type="button" id="dropdownMenuButton{{ file['id'] }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="toggleDropdown(event, '{{ file[id] }}')">
-                            <i class="fas fa-ellipsis-v"></i> <!-- Simple 3 dots -->
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton{{ file['id'] }}" id="dropdownMenu{{ file['id'] }}">
-                            <!-- Preview Link -->
-                            <a class="dropdown-item" href="{{ url_for('uploaded_file', filename=file['file_name']) }}" target="_blank">Preview</a>
-                            <!-- Download Link -->
-                            <a class="dropdown-item" href="{{ url_for('download_file', filename=file['file_name']) }}" download>Download</a>
-                            <!-- Delete Link -->
-                            <a class="dropdown-item text-danger" href="{{ url_for('delete_file', filename=file['file_name']) }}" onclick="return confirm('Are you sure you want to delete this file?');">Delete</a>
-                        </div>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton{{ file['id'] }}" id="dropdownMenu{{ file['id'] }}">
+                        <!-- Preview Link (opens in new tab) -->
+                        <a class="dropdown-item" href="{{ url_for('uploaded_file', filename=file['file_name']) }}" target="_blank">Preview</a>
+                        <!-- Download Link -->
+                        <a class="dropdown-item" href="{{ url_for('download_file', filename=file['file_name']) }}" download>Download</a>
+                        <!-- Delete Link -->
+                        <a class="dropdown-item text-danger" href="{{ url_for('delete_file', filename=file['file_name']) }}" onclick="return confirm('Are you sure you want to delete this file?');">Delete</a>
                     </div>
                 </div>
-                <div class="card-content file-name">
-                    <h5 class="truncate">{{ file['file_name'] }}</h5>
-                </div>
-                <div class="card-image">
-                    <img src="{{ url_for('uploaded_file', filename=file['file_name']) }}" alt="{{ file['file_name'] }}">
-                </div>
-                <div class="card-content date-read">
-                    <span>{{ file['upload_date'] }}</span>
-                    <span>{{ file['upload_time'] }}</span>
-                </div>
             </div>
-            {% endfor %}
-        </div>
-        {% include 'footer.html' %}
 
-¸        
-        <script>
-            function toggleDropdown(event, fileId) {
-                // Prevent the default action
-                event.stopPropagation();
-                
-                // Get the dropdown menu element by fileId
-                const dropdownMenu = document.getElementById('dropdownMenu' + fileId);
-                
-                // Toggle the dropdown visibility
+            <div class="card-content file-name">
+                <h5 class="truncate">{{ file['file_name'] }}</h5>
+            </div>
+
+            <!-- Display PDF as embed (Chrome-friendly), images as img -->
+            <div class="card-image">
+                {% if file['file_name'].lower().endswith('.pdf') %}
+                    <embed
+                        src="{{ url_for('uploaded_file', filename=file['file_name']) }}"
+                        type="application/pdf"
+                        width="100%"
+                        height="150px"
+                        style="border:0; display:block;"
+                    />
+                {% else %}
+                    <img src="{{ url_for('uploaded_file', filename=file['file_name']) }}" alt="{{ file['file_name'] }}">
+                {% endif %}
+            </div>
+
+            <div class="card-content date-read">
+                <span>{{ file['upload_date'] }}</span>
+                <span>{{ file['upload_time'] }}</span>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    {% include 'footer.html' %}
+
+    <!-- Small dropdown toggle script and dropdown-close handler -->
+    <script>
+        function toggleDropdown(event, fileId) {
+            // Prevent click from bubbling
+            event.stopPropagation();
+
+            // Close other dropdowns first (optional)
+            document.querySelectorAll('.dropdown-menu').forEach(function(menu) {
+                if (menu.id !== 'dropdownMenu' + fileId) {
+                    menu.classList.remove('show');
+                }
+            });
+
+            // Toggle the requested dropdown menu
+            const dropdownMenu = document.getElementById('dropdownMenu' + fileId);
+            if (dropdownMenu) {
                 dropdownMenu.classList.toggle('show');
             }
-        
-            // Close all dropdowns if the user clicks anywhere outside the dropdown
-            document.addEventListener('click', function(event) {
-                const dropdowns = document.querySelectorAll('.dropdown-menu');
-                dropdowns.forEach(function(dropdown) {
-                    if (!dropdown.contains(event.target)) {
-                        dropdown.classList.remove('show');
-                    }
-                });
+        }
+
+        // Close all dropdowns if the user clicks anywhere outside the dropdown
+        document.addEventListener('click', function(event) {
+            const dropdowns = document.querySelectorAll('.dropdown-menu');
+            dropdowns.forEach(function(dropdown) {
+                if (!dropdown.contains(event.target)) {
+                    dropdown.classList.remove('show');
+                }
             });
-        </script>
-        
-  
+        });
+    </script>
+
 </main>
 
 <script>
-    document.querySelectorAll('.file-name h5').forEach(element => {
-        const maxLength = 25;
-        const text = element.textContent;
-        if (text.length > maxLength) {
-            element.textContent = text.slice(0, maxLength) + '...';
-        }
+    // Truncate long file names in the UI
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.file-name h5').forEach(element => {
+            const maxLength = 25;
+            const text = element.textContent;
+            if (text.length > maxLength) {
+                element.textContent = text.slice(0, maxLength) + '...';
+            }
+        });
     });
 </script>
 

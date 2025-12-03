@@ -111,7 +111,18 @@ h2 {
     border: 0.5px solid #62ff48;
     background-color: #111;
     color: #fff;
+    transition: 
+        border-color 0.3s ease,
+        box-shadow 0.3s ease,
+        transform 0.3s ease;
 }
+
+.input-group input:hover {
+    border-color: #aaff00;
+    box-shadow: 0 0 5px #62ff48;
+    transform: scale(1.03);
+}
+
 
 .forgot-password {
     text-align: right;

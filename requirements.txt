@@ -79,6 +79,6 @@ uritemplate==4.1.1
 urllib3==2.2.3
 virtualenv==20.26.6
 Werkzeug==3.0.4
-gunicorn==21.2.0  # Use the latest stable version
+gunicorn==21.2.0  
 
 
