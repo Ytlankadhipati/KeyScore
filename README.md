@@ -41,14 +41,18 @@ It allows users to upload, manage, delete, restore, and organize their files thr
 
 ## 📁 Project Structure
 
+```
 KeyScore/
-├── app.py
-├── templates/
-├── static/
-├── uploads/
-├── bin/
-├── README.md
-└── requirements.txt
+│── app.py
+│── templates/
+│── static/
+│── uploads/
+│── bin/
+│── README.md
+│── requirements.txt
+```
+----
+
 
 
 
